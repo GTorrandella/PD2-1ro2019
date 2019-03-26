@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<banco>
+     <cuentas>
+          <caja_ahorros>    
+               <caja_ahorro id="a1" interes="0.03">
+                    <balance>2500</balance>
+               </caja_ahorro>
+               <caja_ahorro id="a2" interes="0.03">
+                    <balance>15075</balance>
+               </caja_ahorro>
+          </caja_ahorros>
+          <cuentas_corrientes>
+               <cuenta_corriente id="a3">
+                    <balance>4025</balance>
+               </cuenta_corriente>
+               <cuenta_corriente id="a4">
+                    <balance>-125</balance>
+               </cuenta_corriente>
+               <cuenta_corriente id="a5">
+                    <balance>325</balance>
+               </cuenta_corriente>
+          </cuentas_corrientes>
+     </cuentas>
+     <clientes>
+          <cliente id="c1">
+               <nombre>Ricardo Carotenuto</nombre>
+               <direccion>Gral Chamizo 50</direccion>
+          </cliente>
+          <cliente id="c2">
+               <nombre>Trapito Paez</nombre>
+               <direccion>Ojo Pekin 670</direccion>
+          </cliente>
+          <cliente id="c3">
+               <nombre>Luis Solari</nombre>
+               <direccion>Rodeo Drive 145</direccion>
+          </cliente>
+     </clientes>
+     <clientes_cuentas>
+          <cliente_cuenta c_id="c1" cu_id="a2"/>
+          <cliente_cuenta c_id="c1" cu_id="a3"/>
+          <cliente_cuenta c_id="c2" cu_id="a4"/>
+          <cliente_cuenta c_id="c3" cu_id="a1"/>
+          <cliente_cuenta c_id="c3" cu_id="a5"/>
+     </clientes_cuentas>
+</banco>

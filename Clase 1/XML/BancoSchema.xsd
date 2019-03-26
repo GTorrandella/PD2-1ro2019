@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+<xs:element name="banco">
+	<xs:complexType>
+		<xs:sequence>
+			<xs:element name="cuentas" type="cuentasType"/>
+			<xs:element name="clientes" type="clientesType"/>
+			<xs:element name="clientes_cuentas"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:key name="caja_ahorroKey">
+		<xs:selector xpath="banco/cuentas/caja_ahorros/caja_ahorro"/>
+		<xs:field xpath="@id"/>
+	</xs:key>
+	<xs:key name="cuenta_corrienteKey">
+		<xs:selector xpath="banco/cuentas/cuentas_corrientes/cuenta_corriente"/>
+		<xs:field xpath="@id"/>
+	</xs:key>
+	<xs:key name="clienteKey">
+		<xs:selector xpath="banco/clientes/cliente"/>
+		<xs:field xpath="@id"/>
+	</xs:key>
+	<xs:keyref name="caja_ahorroKeyref" refer="caja_ahorroKey">
+		<xs:selector xpath="banco/clientes_cuentas/cliente_cuenta"/>
+		<xs:field xpath="@cu_id"/>
+	</xs:keyref>
+	<xs:keyref name="cuenta_corrienteKeyref" refer="cuenta_corrienteKey">
+		<xs:selector xpath="banco/clientes_cuentas/cliente_cuenta"/>
+		<xs:field xpath="@cu_id"/>
+	</xs:keyref>
+	<xs:keyref name="clienteKeyref" refer="clienteKey">
+		<xs:selector xpath="banco/clientes_cuentas/cliente_cuenta"/>
+		<xs:field xpath="@c_id"/>
+	</xs:keyref>
+	<xs:unique name="c_cu_Key">
+		<xs:selector xpath="banco/clientes_cuentas/cliente_cuenta"/>
+		<xs:field xpath="@c_id"/>
+		<xs:field xpath="@cu_id"/>
+	</xs:unique>
+</xs:element>
+
+<xs:complexType name="cuentasType">
+	<xs:sequence>
+		<xs:element name="caja_ahorros">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="caja_ahorro" type="caja_ahorroType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element> 
+		<xs:element name="cuentas_corrientes">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="cuenta_corriente" type="cuenta_corrienteType" minOccurs="0" maxOccurs="unbounded"/>
+				</xs:sequence>
+			</xs:complexType>
+		</xs:element>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cuentaType">
+	<xs:sequence>
+		<xs:element  name="balance" type="balanceType"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+</xs:complexType>
+
+<xs:simpleType name="balanceType">
+	<xs:restriction base="xs:integer">
+		<xs:minExclusive value="5000"/>
+	</xs:restriction>
+</xs:simpleType>
+
+<xs:complexType name="caja_ahorroType">
+	<xs:complexContent>
+		<xs:extension base="cuentaType">
+			<xs:attribute name="interes" type="xs:decimal" use="required"/>
+		</xs:extension>
+	</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="cuenta_corrienteType">
+	<xs:complexContent>
+		<xs:extension base="cuentaType"/>
+	</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="clientesType">
+	<xs:sequence>
+		<xs:element name="cliente" type="clienteType" maxOccurs="unbounded"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="clienteType">
+	<xs:sequence>
+		<xs:element name="nombre" type="xs:string"/>
+		<xs:element name="direccion" type="xs:string"/>
+	</xs:sequence>
+	<xs:attribute name="id" type="xs:ID"/>
+</xs:complexType>
+
+<xs:complexType name="clientes_cuentasType">
+	<xs:sequence>
+		<xs:element name="cliente_cuenta" type="cliente_cuentaType" maxOccurs="unbounded"/>
+	</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cliente_cuentaType">
+	<xs:attribute name="c_id" type="xs:IDREF"/>
+	<xs:attribute name="cu_id" type="xs:IDREF"/>
+</xs:complexType>
+
+</xs:schema>
