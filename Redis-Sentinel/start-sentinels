@@ -1,0 +1,9 @@
+docker container exec -d redis_master_1 redis-sentinel /usr/local/etc/redis/sentinel.conf
+docker container exec -d redis_slave_1 redis-sentinel /usr/local/etc/redis/sentinel.conf
+docker container exec -d redis_slave_2 redis-sentinel /usr/local/etc/redis/sentinel.conf
+docker container exec -d redis_slave_3 redis-sentinel /usr/local/etc/redis/sentinel.conf
+docker container exec -d redis_slave_4 redis-sentinel /usr/local/etc/redis/sentinel.conf
+docker container exec -d redis_slave_5 redis-sentinel /usr/local/etc/redis/sentinel.conf
+docker container exec -d redis_slave_6 redis-sentinel /usr/local/etc/redis/sentinel.conf
+docker container exec -d redis_slave_exposed_1 redis-sentinel /usr/local/etc/redis/sentinel.conf
+echo "Started a Redis Sentinel on every container"

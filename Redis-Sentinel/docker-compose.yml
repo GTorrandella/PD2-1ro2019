@@ -1,0 +1,29 @@
+version: "2.2"
+services:
+  master:
+    build:
+      context: ./Master
+    networks: 
+     - redis-cluster
+    ports:
+     - "6379:6379"
+     - "26379:26379"
+  
+  slave_exposed:
+    build:
+      context: ./Slave
+    networks: 
+     - redis-cluster
+    ports:
+     - "6380:6379"
+     - "26380:26379"
+
+  slave:
+    build:
+      context: ./Slave
+    networks: 
+     - redis-cluster
+    scale: 6
+
+networks: 
+  redis-cluster:
